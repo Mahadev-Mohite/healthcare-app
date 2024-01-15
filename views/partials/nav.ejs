@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Healthcare Application</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+          <% if (user){ %>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/add-new">Add Schedule</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Mahadev Mohite
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+                </ul>
+            </li>
+
+          <%} else{%>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/Signup">Creat Account</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/user/Signin">Signin</a>
+            </li>
+
+          <%} %>
+          
+        </ul>
+        
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+
+    </div>
+    <div class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+      <div class="container-fluid">
+          
+          <span id="current-time" class="navbar-text"></span>
+          <!-- Rest of your navbar code... -->
+      </div>
+  </nav>
+
+
+<% if (locals.error) { %>
+  <div class="container mt-4">
+  <div class="alert alert-danger" role="alert"><%= locals.error %></div>
+</div>
+<% } %>
+<!-- Include this script at the end of your HTML body or in a separate JavaScript file -->
+<script>
+  function updateCurrentTime() {
+      const currentTime = new Date();
+      const hours = currentTime.getHours();
+      const minutes = currentTime.getMinutes();
+      const seconds = currentTime.getSeconds();
+      const formattedTime = `${hours}:${minutes}:${seconds}`;
+  
+      // Update the content of the span with the current time
+      document.getElementById('current-time').textContent = formattedTime;
+  }
+  
+  // Update the current time every second
+  setInterval(updateCurrentTime, 1000);
+  
+  // Initial update
+  updateCurrentTime();
+  </script>
+  

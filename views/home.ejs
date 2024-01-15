@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    /* Style the checkbox */
+    .myCheckbox {
+      /* You can add more styles based on your design preferences */
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Style the text that will be displayed when the checkbox is checked */
+    .scheduleCompletedText {
+      display: none; /* Initially hide the text */
+      color: green;  /* You can customize the color */
+      font-weight: bold;
+    }
+  </style>
+  <%- include('./partials/head') %>
+</head>
+<body>
+  <%- include('./partials/nav') %>
+  <div class="container mt-3">
+    <div class="card-container d-flex flex-row flex-wrap">
+      <% blogs.forEach(blog => { %>
+        <div class="card mb-5 me-3" style="width: 18rem;">
+          <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="Blog Cover Image">
+          <div class="card-body">
+            <h5 class="card-title"><%= blog.title  %></h5>
+            <h5 class="card-body"><%= blog.body %></h5>
+            <h5 class="card-body">⏰<%= blog.time %></h5>
+            <script>
+              var currentTime = new Date();
+              var blogTime = new Date('<%= blog.time %>');
+              console.log(currentTime);
+              console.log(blogTime);
+              
+              if (currentTime.getHours() === blogTime.getHours() &&
+                  currentTime.getMinutes() === blogTime.getMinutes()) {
+                    alert('Time condition met! Alert message.');
+                    // var audio = new Audio('/images/bestringtones.net_colour-photo-bgm.mp3');
+                    // audio.play();
+              }
+            </script>
+            
+            <input type="checkbox" id="myCheckbox<%= blog.id %>" class="myCheckbox" onchange="toggleTextVisibility('<%= blog.id %>')">
+            <span id="scheduleCompletedText<%= blog.id %>" class="scheduleCompletedText">Schedule Completed</span>
+            
+            <script>
+              // Function to toggle text visibility and store the state in localStorage
+              function toggleTextVisibility(blogId) {
+                var checkbox = document.getElementById('myCheckbox' + blogId);
+                var text = document.getElementById('scheduleCompletedText' + blogId);
+
+                // Toggle text visibility based on checkbox state
+                text.style.display = checkbox.checked ? 'inline' : 'none';
+
+                // Store checkbox state in localStorage
+                localStorage.setItem('checkboxState' + blogId, checkbox.checked);
+              }
+
+              // Retrieve and set the checkbox state from localStorage on page load
+              var storedState = localStorage.getItem('checkboxState<%= blog.id %>');
+              if (storedState === 'true') {
+                document.getElementById('myCheckbox<%= blog.id %>').checked = true;
+                document.getElementById('scheduleCompletedText<%= blog.id %>').style.display = 'inline';
+              }
+            </script>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  <%- include('./partials/scripts') %>
+</body>
+</html>

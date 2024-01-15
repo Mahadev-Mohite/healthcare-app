@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Add New Blog</title>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="text-center mt-2">
+        <h1>Add Your Schedule </h1>
+    </div>
+    <div class="container d-flex align-items-center justify-content-center vh-90 mt-0"> <!-- Add mt-5 for 20% top margin -->
+        <form class="w-50 mt-0 p-0" action="/blog" method="post" enctype="multipart/form-data"> <!-- Use w-50 for 50% width -->
+            <div class="mt-0">
+                <label for="coverImage" class="form-label">Cover Image</label>
+                <input 
+                    type="file"
+                    class="form-control"
+                    id="coverImage"
+                    name="coverImage"
+                    aria-describedby="coverImage"
+                >
+            </div>
+
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <div class="mb-3 text-center">
+                    <input 
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        name="title"
+                        aria-describedby="title"
+                    >
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="time" class="form-label">Time</label>
+                <input 
+                    type="datetime"
+                    class="form-control"
+                    id="time"
+                    name="time"
+                    aria-describedby="time"
+                >
+            </div>
+
+            <div class="mb-3">
+                <label for="floatingTextarea">Body</label>
+                <textarea
+                    class="form-control"
+                    id="body" name="body"
+                ></textarea>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+    <%- include('./partials/scripts') %>
+</body>
+</html>
